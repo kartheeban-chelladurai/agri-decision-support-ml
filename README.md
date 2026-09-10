@@ -81,8 +81,12 @@ agri-decision-support/
 
 ## Setup
 
+**Requires Python 3.11 or newer** — the pinned versions of pandas, numpy,
+scikit-learn and matplotlib all declare `Requires-Python: >=3.11`. Check with
+`python3 --version` before starting.
+
 ```bash
-git clone https://github.com/<your-username>/agri-decision-support-ml.git
+git clone https://github.com/kartheeban-chelladurai/agri-decision-support-ml.git
 cd agri-decision-support-ml
 
 python3 -m venv .venv
@@ -90,6 +94,10 @@ source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
 ```
+
+Verified from a clean clone: `pip install -r requirements.txt` succeeds and
+`pytest` passes without retraining, because the trained `.pkl` artefacts are
+committed.
 
 ## Running the pipelines
 
