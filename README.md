@@ -90,14 +90,35 @@ git clone https://github.com/kartheeban-chelladurai/agri-decision-support-ml.git
 cd agri-decision-support-ml
 
 python3 -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
+```
 
+Activate it — **macOS / Linux**:
+
+```bash
+source .venv/bin/activate
+```
+
+**Windows** (Command Prompt or PowerShell):
+
+```
+.venv\Scripts\activate
+```
+
+Your prompt should now start with `(.venv)`. If it doesn't, the next step
+will fail with `'pip' is not recognized` — pip lives inside the venv and only
+reaches your PATH once it is activated.
+
+```bash
 pip install -r requirements.txt
 ```
 
-Verified from a clean clone: `pip install -r requirements.txt` succeeds and
-`pytest` passes without retraining, because the trained `.pkl` artefacts are
-committed.
+Verified from a clean clone on Linux/Python 3.11 and Windows/Python 3.14:
+`pip install -r requirements.txt` succeeds and all 9 tests pass without
+retraining, because the trained `.pkl` artefacts are committed.
+
+On Windows use backslashes in the paths below (`python src\prototype_demo.py`,
+`streamlit run src\streamlit_app.py`). The first `streamlit run` prompts once
+for an email address — press Enter to skip it.
 
 ## Running the pipelines
 
