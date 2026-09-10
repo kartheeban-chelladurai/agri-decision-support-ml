@@ -1,0 +1,85 @@
+{
+  "task": "crop_yield (regression)",
+  "dataset": {
+    "features": [
+      "Temperature",
+      "Humidity",
+      "Soil_Moisture",
+      "Area",
+      "Season_enc",
+      "Crop_enc"
+    ],
+    "target": "Yield = Production / Area",
+    "cleaning": {
+      "rows_before": 49999,
+      "rows_after_validity_filter": 49675,
+      "rows_after_percentile_clip": 48681,
+      "yield_min_before_clip": 0.0005053908355795149,
+      "yield_max_before_clip": 33089.005476552076,
+      "yield_min_after_clip": 0.16803118908382067,
+      "yield_max_after_clip": 129.23158844765342,
+      "clip_bounds": [
+        0.16802402542713452,
+        129.54441892952684
+      ]
+    },
+    "rows_used_for_training": 15000,
+    "train_rows": 12000,
+    "test_rows": 3000,
+    "n_seasons": 6,
+    "n_crops": 75
+  },
+  "model_comparison": [
+    {
+      "model": "Linear Regression",
+      "rmse": 9.494860639784255,
+      "mae": 4.601887525498073,
+      "r2": 0.07256900014888779
+    },
+    {
+      "model": "Random Forest",
+      "rmse": 5.647316981159875,
+      "mae": 1.6607380024702119,
+      "r2": 0.6719132064987585
+    },
+    {
+      "model": "XGBoost",
+      "rmse": 5.448272638404927,
+      "mae": 1.7289173318532658,
+      "r2": 0.6946330137640858
+    }
+  ],
+  "best_model": "XGBoost",
+  "best_params": {
+    "learning_rate": 0.1,
+    "max_depth": 4,
+    "n_estimators": 200
+  },
+  "tuned_test_scores": {
+    "model": "XGBoost (tuned)",
+    "rmse": 5.024667471856407,
+    "mae": 1.6526597166099888,
+    "r2": 0.7402718211551986
+  },
+  "cross_validation": {
+    "folds": 5,
+    "metric": "r2",
+    "mean": 0.7427875984526187,
+    "std": 0.02540612859438904,
+    "scores": [
+      0.7555313706334412,
+      0.7835213335685782,
+      0.7389512129077724,
+      0.7268798824209006,
+      0.709054192732401
+    ]
+  },
+  "feature_importance": {
+    "Temperature": 0.035392627120018005,
+    "Humidity": 0.018450848758220673,
+    "Soil_Moisture": 0.02584303729236126,
+    "Area": 0.08497780561447144,
+    "Season_enc": 0.3403888940811157,
+    "Crop_enc": 0.49494677782058716
+  }
+}

@@ -1,0 +1,21 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Large model artefacts.
+# The .pkl files this project produces are small (< 3 MB) and are committed so
+# the demo and tests run without retraining. Anything larger should be
+# regenerated with the pipeline scripts instead of committed -- see the README.
+*.large.pkl
+
+# OS / editor noise
+.DS_Store
+.idea/
+.vscode/
