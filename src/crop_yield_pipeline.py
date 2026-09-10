@@ -209,10 +209,9 @@ def main() -> dict:
     print(f"\nSplit -> train={X_train.shape[0]}  test={X_test.shape[0]}")
 
     print("\nModel comparison (test set):")
-    comparison, fitted = [], {}
+    comparison = []
     for name, model in build_models().items():
         model.fit(X_train, y_train)
-        fitted[name] = model
         comparison.append(evaluate(name, model, X_test, y_test))
 
     best_name = max(comparison, key=lambda r: r["r2"])["model"]

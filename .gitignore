@@ -9,11 +9,13 @@ __pycache__/
 venv/
 env/
 
-# Large model artefacts.
-# The .pkl files this project produces are small (< 3 MB) and are committed so
-# the demo and tests run without retraining. Anything larger should be
-# regenerated with the pipeline scripts instead of committed -- see the README.
-*.large.pkl
+# Model artefacts
+#
+# The four .pkl files this project produces total ~3 MB, so they ARE committed
+# on purpose: `pytest` and `prototype_demo.py` then run on a fresh clone with
+# no training step. Git cannot ignore by file size, so there is no pattern to
+# write here -- if a future model grows past ~50 MB, ignore it by name and
+# regenerate it with the pipeline scripts (see "Model artefacts" in README.md).
 
 # OS / editor noise
 .DS_Store

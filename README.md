@@ -58,7 +58,7 @@ String columns are also whitespace-stripped (the raw file stores
 ## Project structure
 
 ```
-agri-decision-support/
+agri-decision-support-ml/
 ├── data/
 │   ├── crop_recommendation.csv
 │   └── crop_yield_dataset.csv
@@ -178,8 +178,10 @@ and non-positive area.
 
 All numbers below are the actual output of the two pipeline scripts on this
 repository's data (`outputs/crop_classification_results.json` and
-`outputs/crop_yield_results.json`). Re-running reproduces them —
-`random_state=42` throughout.
+`outputs/crop_yield_results.json`). `random_state=42` is set throughout, so
+re-running reproduces every figure below at the precision shown. (The raw JSON
+can differ in the last couple of significant digits between runs — the forest
+models use `n_jobs=-1`, and parallel float reduction is not bit-deterministic.)
 
 ### Task 1 — Crop recommendation (classification)
 
