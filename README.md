@@ -71,6 +71,8 @@ agri-decision-support-ml/
 ├── outputs/                              # EDA plots, confusion matrix, results JSON
 ├── tests/
 │   └── test_prototype.py
+├── docs/
+│   └── LOCAL_SETUP.md                    # step-by-step local run guide
 ├── requirements.txt
 ├── .gitignore
 ├── README.md
@@ -80,6 +82,10 @@ agri-decision-support-ml/
 ---
 
 ## Setup
+
+> **Just want the commands?** See **[docs/LOCAL_SETUP.md](docs/LOCAL_SETUP.md)**
+> for a step-by-step local setup guide with Windows and macOS/Linux
+> instructions, expected output for each command, and a troubleshooting table.
 
 **Requires Python 3.11 or newer** — the pinned versions of pandas, numpy,
 scikit-learn and matplotlib all declare `Requires-Python: >=3.11`. Check with
