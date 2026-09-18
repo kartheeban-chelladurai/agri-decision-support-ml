@@ -44,11 +44,30 @@ async function fetchApi<T>(endpoint: string, options: RequestInit = {}): Promise
   }
 }
 
+/**
+ * The /health and /metadata/* endpoints return their payload directly, with no
+ * { success, prediction } envelope -- only /predict/* is wrapped. Reading them
+ * through fetchApi() made `response.success` undefined, so every metadata call
+ * was treated as a failure and the crop/season dropdowns never populated.
+ * Returns null on a network error; callers already handle null.
+ */
+async function fetchRaw<T>(endpoint: string): Promise<T | null> {
+  try {
+    const response = await fetch(`${API_BASE_URL}${endpoint}`, {
+      headers: { 'Content-Type': 'application/json' },
+    });
+    if (!response.ok) return null;
+    return (await response.json()) as T;
+  } catch {
+    return null;
+  }
+}
+
 export const api = {
-  healthCheck: () => fetchApi<HealthCheckResponse>('/health'),
-  getCrops: () => fetchApi<CropsMetadataResponse>('/metadata/crops'),
-  getSeasons: () => fetchApi<SeasonsMetadataResponse>('/metadata/seasons'),
-  getModelInfo: () => fetchApi<ModelInfoResponse>('/metadata/model-info'),
+  healthCheck: () => fetchRaw<HealthCheckResponse>('/health'),
+  getCrops: () => fetchRaw<CropsMetadataResponse>('/metadata/crops'),
+  getSeasons: () => fetchRaw<SeasonsMetadataResponse>('/metadata/seasons'),
+  getModelInfo: () => fetchRaw<ModelInfoResponse>('/metadata/model-info'),
   predictCrop: (data: CropRecommendationInput) => 
     fetchApi<CropPredictionData>('/predict/crop', {
       method: 'POST',

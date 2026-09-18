@@ -6,24 +6,32 @@ import { settingsService } from '../services/settings';
 
 export default function RootLayout() {
   const [isReady, setIsReady] = useState(false);
-  const [needsOnboarding, setNeedsOnboarding] = useState(false);
   const router = useRouter();
   const segments = useSegments();
 
   useEffect(() => {
-    settingsService.getSettings().then(settings => {
-      setNeedsOnboarding(!settings.hasCompletedOnboarding);
-      setIsReady(true);
-    });
+    settingsService.getSettings().then(() => setIsReady(true));
   }, []);
 
+  // Re-read the persisted flag on every navigation into the tab group rather
+  // than caching it in state. Caching it meant that finishing onboarding --
+  // which writes hasCompletedOnboarding and replaces to /(tabs) -- was judged
+  // against the stale value captured at mount, so the guard immediately sent
+  // the user back to /onboarding. On web a full page reload hid this; on a
+  // device there is no reload, so onboarding could never be escaped.
   useEffect(() => {
     if (!isReady) return;
-    const inTabsGroup = segments[0] === '(tabs)';
-    if (needsOnboarding && inTabsGroup) {
-      router.replace('/onboarding');
-    }
-  }, [isReady, needsOnboarding, segments]);
+    if (segments[0] !== '(tabs)') return;
+    let cancelled = false;
+    settingsService.getSettings().then(settings => {
+      if (!cancelled && !settings.hasCompletedOnboarding) {
+        router.replace('/onboarding');
+      }
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, [isReady, segments]);
 
   if (!isReady) {
     return <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}><ActivityIndicator size="large" /></View>;

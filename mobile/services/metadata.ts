@@ -10,8 +10,8 @@ export const metadataService = {
     if (cropsCache && !forceRefresh) return cropsCache;
     
     const response = await api.getCrops();
-    if (response.success && response.prediction) {
-      cropsCache = response.prediction;
+    if (response) {
+      cropsCache = response;
       return cropsCache;
     }
     return null;
@@ -21,8 +21,8 @@ export const metadataService = {
     if (seasonsCache && !forceRefresh) return seasonsCache;
     
     const response = await api.getSeasons();
-    if (response.success && response.prediction) {
-      seasonsCache = response.prediction;
+    if (response) {
+      seasonsCache = response;
       return seasonsCache;
     }
     return null;
