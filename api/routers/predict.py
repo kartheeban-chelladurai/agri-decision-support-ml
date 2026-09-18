@@ -10,6 +10,16 @@ from ..services.yield_estimation import get_yield_estimation, load_yield_model
 
 router = APIRouter(prefix="/predict", tags=["predict"])
 
+
+def _utc_timestamp() -> str:
+    """Current UTC time as RFC 3339, e.g. 2026-09-18T14:30:00Z.
+
+    Note: `.isoformat()` on an aware datetime already emits the "+00:00"
+    offset, so appending "Z" yields "...+00:00Z" -- two designators, which is
+    invalid and which JavaScript's `new Date()` parses as Invalid Date.
+    """
+    return datetime.datetime.now(datetime.UTC).strftime("%Y-%m-%dT%H:%M:%SZ")
+
 @router.post("/crop", response_model=CropRecommendationResponse)
 def predict_crop(request: CropRecommendationRequest):
     try:
@@ -30,7 +40,7 @@ def predict_crop(request: CropRecommendationRequest):
                 analyzed_crops=analyzed_crops
             ),
             input_summary=request.model_dump(),
-            timestamp=datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+            timestamp=_utc_timestamp()
         )
     except Exception as e:
         return JSONResponse(
@@ -68,7 +78,7 @@ def predict_yield(request: YieldEstimationRequest):
                 model_used=model_name
             ),
             input_summary=request.model_dump(),
-            timestamp=datetime.datetime.now(datetime.UTC).isoformat() + "Z"
+            timestamp=_utc_timestamp()
         )
     except ValueError as ve:
         return JSONResponse(

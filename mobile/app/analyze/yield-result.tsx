@@ -1,7 +1,6 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import { ScreenContainer } from '../../components/layout/ScreenContainer';
 import { AppCard } from '../../components/ui/AppCard';
 import { AppButton } from '../../components/ui/AppButton';
 import { StatusBadge } from '../../components/ui/StatusBadge';
@@ -19,7 +18,12 @@ export default function YieldResultScreen() {
     <ScrollView style={styles.container} contentContainerStyle={styles.content}>
       <AppCard variant="highlighted" style={styles.resultCard}>
         <Text style={styles.resultLabel}>ESTIMATED YIELD</Text>
-        <Text style={styles.yieldValue}>{resultItem.result.total_production.toLocaleString()}</Text>
+        <Text style={styles.yieldValue}>{resultItem.result.yield_value.toFixed(3)}</Text>
+        <Text style={styles.yieldUnit}>production units per hectare</Text>
+        <Text style={styles.totalProduction}>
+          Total for {resultItem.input.area.toLocaleString()} ha:{' '}
+          {resultItem.result.total_production.toLocaleString(undefined, { maximumFractionDigits: 1 })} units
+        </Text>
         <Text style={styles.disclaimer}>{resultItem.result.unit_note}</Text>
         <View style={styles.badges}>
           <StatusBadge variant="season" label={`Model: ${resultItem.result.model_used}`} />
@@ -49,7 +53,9 @@ const styles = StyleSheet.create({
   content: { padding: theme.spacing.lg, paddingBottom: theme.spacing['3xl'] },
   resultCard: { alignItems: 'center', paddingVertical: theme.spacing['3xl'], marginBottom: theme.spacing['2xl'] },
   resultLabel: { ...theme.typography.labelSm, color: theme.colors.primaryDark, marginBottom: theme.spacing.sm },
-  yieldValue: { ...theme.typography.displayLg, color: theme.colors.primaryDark, marginBottom: theme.spacing.sm, textAlign: 'center' },
+  yieldValue: { ...theme.typography.displayLg, color: theme.colors.primaryDark, textAlign: 'center' },
+  yieldUnit: { ...theme.typography.bodySm, color: theme.colors.textSecondary, marginBottom: theme.spacing.md, textAlign: 'center' },
+  totalProduction: { ...theme.typography.bodyMd, color: theme.colors.text, fontWeight: '600', marginBottom: theme.spacing.sm, textAlign: 'center' },
   disclaimer: { ...theme.typography.bodySm, color: theme.colors.textSecondary, textAlign: 'center', marginBottom: theme.spacing.lg, paddingHorizontal: theme.spacing.lg },
   badges: { flexDirection: 'row', gap: theme.spacing.sm },
   sectionTitle: { ...theme.typography.headingMd, color: theme.colors.text, marginBottom: theme.spacing.md },
