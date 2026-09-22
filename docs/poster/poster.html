@@ -1,0 +1,323 @@
+<meta charset="utf-8">
+<style>
+:root{
+  --navy:#12395C; --navy2:#1F4E79; --blue:#5A8CB8; --line:#C6D6E2;
+  --panel:#F4F8FB; --ink:#16232E; --ink2:#41586B; --gold:#8A7538; --green:#1E6B4F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff}
+body{font-family:'DejaVu Sans',Arial,sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased}
+#poster{width:420mm;height:297mm;padding:6mm;display:flex;flex-direction:column;gap:3mm;background:#fff;overflow:hidden}
+
+/* ---------- header ---------- */
+header{height:33mm;background:linear-gradient(100deg,#0E2E4B 0%,#1F4E79 55%,#2C6A9E 100%);
+  border-radius:3mm;color:#fff;display:flex;align-items:center;padding:0 7mm;gap:7mm}
+.hleft{flex:1 1 auto;min-width:0}
+.inst{font-size:11.5pt;font-weight:700;letter-spacing:.02em}
+.sub{font-size:8.2pt;color:#C8DCEC;margin-top:.6mm}
+.title{font-size:20pt;font-weight:700;line-height:1.08;margin-top:1.6mm;letter-spacing:-.01em}
+.tag{font-size:8.4pt;color:#D7E7F3;margin-top:1.2mm}
+.hright{flex:0 0 78mm;background:rgba(255,255,255,.12);border:0.35mm solid rgba(255,255,255,.3);
+  border-radius:2mm;padding:2.6mm 3mm}
+.hright .lbl{font-size:6.8pt;font-weight:700;letter-spacing:.12em;color:#BBD5E8}
+.hright .nm{font-size:8.6pt;font-weight:700;margin-top:.8mm}
+.hright .rn{font-size:7.6pt;color:#D7E7F3;font-weight:400}
+.hr-div{height:.3mm;background:rgba(255,255,255,.25);margin:1.6mm 0}
+
+/* ---------- grid ---------- */
+.main{display:flex;gap:3mm;height:200mm}
+.col{display:flex;flex-direction:column;gap:3mm}
+.cL{width:116mm}.cC{width:142mm}.cR{width:144mm}
+.bottom{display:flex;gap:3mm;height:46mm}
+
+/* ---------- panel ---------- */
+.p{border:0.35mm solid var(--line);border-radius:2mm;background:#fff;display:flex;flex-direction:column;overflow:hidden}
+.p>h2{background:var(--navy);color:#fff;font-size:9pt;font-weight:700;letter-spacing:.07em;
+  padding:1.7mm 3mm;display:flex;align-items:center;gap:2mm}
+.p>h2 .n{background:rgba(255,255,255,.22);border-radius:1mm;padding:.2mm 1.4mm;font-size:7.4pt}
+.body{padding:2.6mm 3mm;font-size:8.2pt;line-height:1.42;color:var(--ink);flex:1;min-height:0}
+.body.tight{padding:2.2mm 3mm}
+
+ul{list-style:none}
+li{position:relative;padding-left:3.4mm;margin-bottom:1.5mm}
+li:last-child{margin-bottom:0}
+li:before{content:"";position:absolute;left:0;top:1.5mm;width:1.5mm;height:1.5mm;border-radius:50%;background:var(--blue)}
+b{color:var(--navy2)}
+.mut{color:var(--ink2)}
+
+/* objectives */
+.obj{display:flex;gap:2.2mm;margin-bottom:1.6mm;align-items:flex-start}
+.obj:last-child{margin-bottom:0}
+.obj .num{flex:0 0 5.4mm;height:5.4mm;border-radius:1.2mm;background:var(--navy2);color:#fff;
+  font-size:7.6pt;font-weight:700;display:flex;align-items:center;justify-content:center}
+.obj .txt{flex:1;padding-top:.5mm}
+
+/* workflow */
+.flow{display:flex;align-items:stretch;gap:0;width:100%}
+.stg{flex:1;background:var(--panel);border:0.3mm solid var(--line);border-radius:1.5mm;
+  padding:1.8mm 1mm;text-align:center;display:flex;flex-direction:column;justify-content:center}
+.stg .t{font-size:7.4pt;font-weight:700;color:var(--navy);line-height:1.15}
+.stg .d{font-size:6.6pt;color:var(--ink2);margin-top:.5mm;line-height:1.15}
+.arw{flex:0 0 4mm;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:10pt;font-weight:700}
+
+/* tech chips */
+.chips{display:flex;flex-wrap:wrap;gap:1.4mm}
+.chip{border:0.3mm solid var(--line);background:var(--panel);border-radius:1.2mm;
+  padding:1.1mm 2mm;font-size:7.4pt;color:var(--navy);font-weight:600;white-space:nowrap}
+.chip.g{border-color:#BFDCCB;background:#EDF6F1;color:var(--green)}
+.chip.y{border-color:#E2D6AE;background:#FAF5E8;color:var(--gold)}
+
+/* metrics */
+.kpis{display:flex;gap:2.2mm;margin-bottom:1.6mm}
+.kpi{flex:1;border:0.35mm solid var(--line);border-radius:1.6mm;padding:1.4mm 2mm;background:var(--panel)}
+.kpi .v{font-size:15.5pt;font-weight:700;color:var(--navy2);line-height:1}
+.kpi .l{font-size:6.8pt;color:var(--ink2);margin-top:.7mm;line-height:1.2}
+.kpi .s{font-size:6.4pt;color:var(--blue);margin-top:.4mm;font-weight:600}
+
+/* bar chart */
+.chart{margin-bottom:1.6mm}
+.chart .ct{font-size:7.2pt;font-weight:700;color:var(--navy);margin-bottom:1.2mm}
+.bar{display:flex;align-items:center;gap:1.6mm;margin-bottom:.8mm}
+.bar:last-child{margin-bottom:0}
+.bar .nm{flex:0 0 26mm;font-size:7pt;color:var(--ink2);text-align:right}
+.bar .tr{flex:1;height:3.1mm;background:#EDF2F6;border-radius:0 1mm 1mm 0;position:relative}
+.bar .fl{height:100%;background:var(--blue);border-radius:0 1mm 1mm 0}
+.bar.win .fl{background:var(--navy2)}
+.bar.win .nm{color:var(--navy2);font-weight:700}
+.bar .vl{flex:0 0 13mm;font-size:7pt;font-weight:700;color:var(--navy2)}
+
+table{width:100%;border-collapse:collapse;font-size:7.1pt}
+th{background:var(--panel);color:var(--navy);font-weight:700;text-align:left;
+   padding:1.1mm 1.6mm;border-bottom:0.3mm solid var(--line)}
+td{padding:1mm 1.6mm;border-bottom:0.25mm solid #E8EEF3;color:var(--ink2)}
+tr:last-child td{border-bottom:none}
+td.w{color:var(--navy2);font-weight:700}
+tr.win td{background:#F0F6FB}
+
+img{display:block;max-width:100%}
+.figrow{display:flex;gap:2.2mm;align-items:flex-start}
+.figrow img{max-height:22mm;width:auto;margin:0 auto}
+.evid{display:flex;align-items:center}
+.ev{display:flex;gap:4mm;width:100%;align-items:center;justify-content:center}
+.evc{display:flex;flex-direction:column;align-items:center;min-width:0}
+.evc img{max-height:34mm;width:auto}
+.evc .cap{max-width:62mm}
+.cap{font-size:6.1pt;color:var(--ink2);text-align:center;margin-top:.8mm;line-height:1.25}
+.refs{font-size:6.7pt;line-height:1.28;color:var(--ink2)}
+.refs div{margin-bottom:.7mm;padding-left:4.6mm;text-indent:-4.6mm}
+.refs div:last-child{margin-bottom:0}
+</style>
+
+<div id="poster">
+
+<!-- ============ HEADER ============ -->
+<header>
+  <div class="hleft">
+    <div class="inst">CHENNAI INSTITUTE OF TECHNOLOGY, CHENNAI</div>
+    <div class="sub">Affiliated to Anna University, Chennai · (Autonomous) &nbsp;|&nbsp; Department of Computer Science and Engineering</div>
+    <div class="title">AgriSense — An ML-Based Agricultural Decision Support System for Small&#8209;Scale Farmers</div>
+    <div class="tag">Project-Based Learning · Machine Learning · B.E. Computer Science and Engineering · Academic Year 2026–2027</div>
+  </div>
+  <div class="hright">
+    <div class="lbl">PROJECT TEAM</div>
+    <div class="nm">Kartheeban C <span class="rn">— 2104251040406</span></div>
+    <div class="nm">B Nishanth <span class="rn">— 2104251040127</span></div>
+    <div class="hr-div"></div>
+    <div class="lbl">FACULTY GUIDE</div>
+    <div class="nm">Ms. Rajapriya</div>
+  </div>
+</header>
+
+<!-- ============ MAIN ============ -->
+<div class="main">
+
+  <!-- ---------- LEFT ---------- -->
+  <div class="col cL">
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">01</span> ABSTRACT</h2>
+      <div class="body">Small-scale farmers choose crops and judge expected harvests from experience rather than data.
+      <b>AgriSense</b> pairs two supervised models — a Random Forest recommending one of 22 crops from soil and
+      weather readings, and an XGBoost regressor estimating yield per hectare — behind a FastAPI service and a
+      React Native application. Trained on 2,200 and 48,681 public records, it reaches <b>99.55%</b> classification
+      accuracy and <b>R² 0.7403</b>, answering both questions on a phone in under a second.</div>
+    </div>
+
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">02</span> PROBLEM STATEMENT</h2>
+      <div class="body"><ul>
+        <li>Most Indian holdings are small or marginal; crop choice and yield expectation rest on inherited experience.</li>
+        <li>Soil tests return <b>nutrient values, not decisions</b> — the gap is interpretation, not measurement.</li>
+        <li>Shifting rainfall and repeated cropping erode the reliability of that experience.</li>
+        <li>Prior ML work rarely reaches the farmer: it ends at a notebook, not a usable tool.</li>
+      </ul></div>
+    </div>
+
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">03</span> OBJECTIVES</h2>
+      <div class="body">
+        <div class="obj"><div class="num">01</div><div class="txt">Preprocess two public datasets; derive yield and remove invalid and extreme records.</div></div>
+        <div class="obj"><div class="num">02</div><div class="txt">Build and iteratively refine classification and regression models.</div></div>
+        <div class="obj"><div class="num">03</div><div class="txt">Benchmark three models per task against a baseline, then tune the winner.</div></div>
+        <div class="obj"><div class="num">04</div><div class="txt">Evaluate with accuracy / precision / recall / F1 and RMSE / MAE / R².</div></div>
+        <div class="obj"><div class="num">05</div><div class="txt">Deliver the trained models through a REST API and a mobile client.</div></div>
+      </div>
+    </div>
+
+    <div class="p" style="flex:1 1 auto">
+      <h2><span class="n">04</span> DATASETS</h2>
+      <div class="body">
+        <div style="font-weight:700;color:var(--navy2);font-size:7.8pt">Crop Recommendation [4]</div>
+        <div class="mut" style="margin:.6mm 0 1.8mm">2,200 rows · 7 numeric features (N, P, K, temperature, humidity, pH, rainfall) · <b>22 balanced classes</b>, 100 records each · stratified 80/20 → 1,760 / 440</div>
+        <div style="font-weight:700;color:var(--navy2);font-size:7.8pt">Indian Crop Production [5]</div>
+        <div class="mut" style="margin:.6mm 0 0">49,999 rows → <b>48,681 after cleaning</b> · 75 crops · 6 seasons ·
+        target <b>Yield = Production ÷ Area</b> · clipped to the 1st–99th percentile (0.0005–33,089 → 0.168–129.2) · 15,000 sampled → 12,000 / 3,000</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ---------- CENTER ---------- -->
+  <div class="col cC">
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">05</span> METHODOLOGY</h2>
+      <div class="body tight">
+        <div class="flow">
+          <div class="stg"><div class="t">INGEST</div><div class="d">two public CSVs</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">CLEAN</div><div class="d">derive &amp; clip yield</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">ENCODE</div><div class="d">label-encode + split</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">COMPARE</div><div class="d">3 models / task</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">TUNE</div><div class="d">GridSearchCV</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">VALIDATE</div><div class="d">5-fold CV</div></div>
+          <div class="arw">›</div>
+          <div class="stg"><div class="t">SERVE</div><div class="d">REST + mobile</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="p" style="flex:1 1 auto">
+      <h2><span class="n">06</span> SYSTEM ARCHITECTURE</h2>
+      <div class="body tight" style="display:flex;flex-direction:column;justify-content:center">
+        <img src="img/architecture_wide.png" alt="architecture">
+        <div class="cap">Three layers with the ML layer as the single source of truth. The API <b>imports</b> the inference module
+        rather than reimplementing it — a parity test asserts endpoint output equals direct model output to 1e-5. The .pkl artefacts are
+        produced offline by the training pipelines (panel 05) and committed, so nothing retrains at request time.</div>
+      </div>
+    </div>
+
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">07</span> IMPLEMENTATION &amp; TECHNOLOGIES</h2>
+      <div class="body tight">
+        <ul style="margin-bottom:2mm">
+          <li><b>Training pipelines</b> — clean, encode, compare three models, tune the winner, serialise with joblib; all metrics written to JSON.</li>
+          <li><b>Inference module</b> — two functions, models cached after one load; unknown crop or season raises a readable error mapped to HTTP 422.</li>
+          <li><b>REST service</b> — predict, metadata and health endpoints; dropdowns populated from the saved encoders, so an unknown crop can never be offered. Validated by <b>22 automated tests</b> (9 ML + 13 API) and static type checking.</li>
+        </ul>
+        <div class="chips">
+          <span class="chip">Python 3.11</span><span class="chip">scikit-learn 1.9</span><span class="chip">XGBoost 3.2</span>
+          <span class="chip">pandas</span><span class="chip">NumPy</span><span class="chip">joblib</span>
+          <span class="chip">matplotlib</span><span class="chip">seaborn</span>
+          <span class="chip g">FastAPI</span><span class="chip g">Uvicorn</span><span class="chip g">Pydantic</span>
+          <span class="chip y">React Native 0.86</span><span class="chip y">Expo SDK 57</span><span class="chip y">TypeScript</span>
+          <span class="chip">Streamlit</span><span class="chip">pytest</span><span class="chip">Git / GitHub</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ---------- RIGHT ---------- -->
+  <div class="col cR">
+    <div class="p" style="flex:1 1 auto">
+      <h2><span class="n">08</span> RESULTS &amp; PERFORMANCE</h2>
+      <div class="body tight">
+        <div class="kpis">
+          <div class="kpi"><div class="v">99.55%</div><div class="l">Test accuracy<br>Crop recommendation</div><div class="s">CV 0.9927 ± 0.0039</div></div>
+          <div class="kpi"><div class="v">0.7403</div><div class="l">R² — yield estimation<br>RMSE 5.0247 · MAE 1.6527</div><div class="s">CV 0.7428 ± 0.0254</div></div>
+        </div>
+
+        <div class="chart">
+          <div class="ct">Classification — test accuracy (440 held-out records)</div>
+          <div class="bar"><div class="nm">Logistic Regression</div><div class="tr"><div class="fl" style="width:97.27%"></div></div><div class="vl">0.9727</div></div>
+          <div class="bar"><div class="nm">XGBoost</div><div class="tr"><div class="fl" style="width:98.86%"></div></div><div class="vl">0.9886</div></div>
+          <div class="bar win"><div class="nm">Random Forest ★</div><div class="tr"><div class="fl" style="width:99.55%"></div></div><div class="vl">0.9955</div></div>
+        </div>
+
+        <div class="chart">
+          <div class="ct">Regression — R² (3,000 held-out records)</div>
+          <div class="bar"><div class="nm">Linear Regression</div><div class="tr"><div class="fl" style="width:7.26%"></div></div><div class="vl">0.0726</div></div>
+          <div class="bar"><div class="nm">Random Forest</div><div class="tr"><div class="fl" style="width:67.19%"></div></div><div class="vl">0.6719</div></div>
+          <div class="bar"><div class="nm">XGBoost (untuned)</div><div class="tr"><div class="fl" style="width:69.46%"></div></div><div class="vl">0.6946</div></div>
+          <div class="bar win"><div class="nm">XGBoost tuned ★</div><div class="tr"><div class="fl" style="width:74.03%"></div></div><div class="vl">0.7403</div></div>
+        </div>
+
+        <table style="margin-bottom:2mm">
+          <tr><th>Final model</th><th>Hyperparameters (grid search)</th></tr>
+          <tr class="win"><td class="w">Random Forest</td><td>100 trees · depth 10 · min_split 5</td></tr>
+          <tr class="win"><td class="w">XGBoost</td><td>200 rounds · depth 4 · lr 0.1</td></tr>
+          <tr><td class="w">Confusion matrix</td><td><b>438 of 440</b> held-out records correct</td></tr>
+        </table>
+        <div style="text-align:center">
+          <img src="img/yield_pred_vs_actual.png" alt="predicted vs actual yield" style="max-height:28mm;width:auto;margin:0 auto">
+          <div class="cap">Predicted vs actual yield — tight where most data lies, fanning<br>above, where high-yield records are sparse</div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="p" style="flex:0 0 auto">
+      <h2><span class="n">09</span> KEY FINDINGS</h2>
+      <div class="body tight"><ul>
+        <li>The same model class was near-sufficient for one task and useless for the other — logistic regression
+          <b>97.27%</b>, but linear regression only <b>R² 0.0726</b>. Crop choice turns on continuous water
+          variables (rainfall 0.2231 + humidity 0.2169 = 44%), which a linear boundary can largely capture.</li>
+        <li>Yield is driven by categorical inputs — crop <b>0.4949</b> + season <b>0.3404</b> = <b>84%</b> of importance —
+          which a linear model over label-encoded integers cannot represent.</li>
+        <li>Tuning could not improve the classifier (2 of 440 errors — the dataset ceiling) but lifted the regressor
+          0.6946 → <b>0.7403</b>, choosing depth 4 over 6 and so correcting overfitting.</li>
+        <li>Running the real application exposed <b>5 integration defects</b> invisible to the 22 unit tests and to type checking.</li>
+        <li class="mut"><b>Limitations:</b> the balanced dataset flatters classification accuracy; coarse integer weather
+          columns and sparse high-yield records cap the regressor; the build is not deployed.</li>
+      </ul></div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ BOTTOM ============ -->
+<div class="bottom">
+  <div class="p" style="width:150mm">
+    <h2><span class="n">10</span> CONCLUSION</h2>
+    <div class="body tight">AgriSense delivers crop recommendation and yield estimation from measurements a small-scale
+    farmer can realistically obtain. A tuned Random Forest classifies 22 crops at <b>99.55%</b> test accuracy
+    (5-fold CV 0.9927 ± 0.0039), and a tuned XGBoost regressor estimates yield at <b>R² 0.7403</b> (RMSE 5.0247).
+    Both are served through a REST API and a React Native application, with an automated parity test asserting that
+    what the app displays matches the model exactly.</div>
+  </div>
+  <div class="p" style="width:126mm">
+    <h2><span class="n">11</span> FUTURE ENHANCEMENTS</h2>
+    <div class="body tight"><ul>
+      <li>Train on all 48,681 cleaned rows instead of a 15,000-row sample.</li>
+      <li>Replace the coarse integer weather columns with a meteorological API feed.</li>
+      <li>Return class probabilities and prediction intervals as a confidence measure.</li>
+      <li>Deploy with authentication and a restricted cross-origin policy.</li>
+      <li>Add offline support and regional-language interface options.</li>
+    </ul></div>
+  </div>
+  <div class="p" style="width:126mm">
+    <h2><span class="n">12</span> REFERENCES</h2>
+    <div class="body tight refs">
+      <div>[1] L. Breiman, “Random forests,” <i>Machine Learning</i>, vol. 45, no. 1, pp. 5–32, 2001.</div>
+      <div>[2] T. Chen and C. Guestrin, “XGBoost: A scalable tree boosting system,” <i>Proc. 22nd ACM SIGKDD</i>, 2016, pp. 785–794.</div>
+      <div>[3] F. Pedregosa et al., “Scikit-learn: Machine learning in Python,” <i>JMLR</i>, vol. 12, pp. 2825–2830, 2011.</div>
+      <div>[4] Harvestify, “Crop recommendation dataset,” GitHub repository.</div>
+      <div>[5] A. Kandoi, “Crop prediction dataset based on Indian agriculture,” GitHub repository.</div>
+      <div>[6] S. Ramírez, “FastAPI documentation.” [Online]. Available: fastapi.tiangolo.com</div>
+      <div>[7] J. H. Friedman, “Greedy function approximation: A gradient boosting machine,” <i>Annals of Statistics</i>, vol. 29, no. 5, pp. 1189–1232, 2001.</div>
+    </div>
+  </div>
+</div>
+
+</div>

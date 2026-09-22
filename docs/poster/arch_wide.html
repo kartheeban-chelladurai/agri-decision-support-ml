@@ -1,0 +1,56 @@
+<meta charset="utf-8">
+<style>
+ html,body{margin:0;padding:0;background:#fff}
+ .t{font:700 31px 'DejaVu Sans',sans-serif}
+ .s{font:400 19px 'DejaVu Sans',sans-serif}
+ .c{font:400 19px 'DejaVu Sans Mono',monospace}
+ .cl{font:400 20px 'DejaVu Sans',sans-serif}
+ .e{font:700 18px 'DejaVu Sans',sans-serif;fill:#1F4E79}
+</style>
+<svg width="900" height="470" viewBox="0 0 900 470" xmlns="http://www.w3.org/2000/svg">
+ <defs>
+  <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+   <path d="M0,0 L10,5 L0,10 z" fill="#1F4E79"/></marker>
+ </defs>
+
+ <!-- 1 MOBILE -->
+ <rect x="16" y="16" width="400" height="192" rx="12" fill="#EAF2F8" stroke="#1F4E79" stroke-width="3.5"/>
+ <text class="t" x="38" y="58" fill="#12395C">MOBILE CLIENT</text>
+ <text class="s" x="38" y="86" fill="#41688A">React Native · Expo Router</text>
+ <rect x="38" y="102" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="cl" x="124" y="130" text-anchor="middle" fill="#12395C">Analyze</text>
+ <rect x="226" y="102" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="cl" x="312" y="130" text-anchor="middle" fill="#12395C">Results</text>
+ <rect x="38" y="154" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="cl" x="124" y="182" text-anchor="middle" fill="#12395C">History</text>
+ <rect x="226" y="154" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="cl" x="312" y="182" text-anchor="middle" fill="#12395C">Profile</text>
+
+ <line x1="418" y1="112" x2="476" y2="112" stroke="#1F4E79" stroke-width="3.5" marker-end="url(#a)"/>
+ <text class="e" x="447" y="100" text-anchor="middle">REST</text>
+
+ <!-- 2 API -->
+ <rect x="484" y="16" width="400" height="192" rx="12" fill="#E4EEF6" stroke="#1F4E79" stroke-width="3.5"/>
+ <text class="t" x="506" y="58" fill="#12395C">API LAYER</text>
+ <text class="s" x="506" y="86" fill="#41688A">FastAPI · Pydantic validation</text>
+ <rect x="506" y="102" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="c" x="592" y="130" text-anchor="middle" fill="#12395C">/predict/crop</text>
+ <rect x="694" y="102" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="c" x="780" y="130" text-anchor="middle" fill="#12395C">/predict/yield</text>
+ <rect x="506" y="154" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="c" x="592" y="182" text-anchor="middle" fill="#12395C">/metadata/*</text>
+ <rect x="694" y="154" width="172" height="42" rx="7" fill="#fff" stroke="#A9C4D6"/><text class="c" x="780" y="182" text-anchor="middle" fill="#12395C">/health</text>
+
+ <line x1="684" y1="210" x2="684" y2="256" stroke="#1F4E79" stroke-width="3.5" marker-end="url(#a)"/>
+ <text class="e" x="698" y="238">direct import</text>
+
+ <!-- 3 INFERENCE -->
+ <rect x="484" y="260" width="400" height="192" rx="12" fill="#E8F3EC" stroke="#1E6B4F" stroke-width="3.5"/>
+ <text class="t" x="506" y="302" fill="#14503A">INFERENCE</text>
+ <text class="s" x="506" y="330" fill="#3E7A62">prototype_demo.py · cached</text>
+ <rect x="506" y="346" width="360" height="42" rx="7" fill="#fff" stroke="#AFCFBD"/><text class="c" x="686" y="374" text-anchor="middle" fill="#14503A">recommend_crop()</text>
+ <rect x="506" y="398" width="360" height="42" rx="7" fill="#fff" stroke="#AFCFBD"/><text class="c" x="686" y="426" text-anchor="middle" fill="#14503A">estimate_yield()</text>
+
+ <line x1="476" y1="356" x2="424" y2="356" stroke="#1F4E79" stroke-width="3.5" marker-end="url(#a)"/>
+ <text class="e" x="450" y="344" text-anchor="middle">load</text>
+
+ <!-- 4 MODEL STORE -->
+ <rect x="16" y="260" width="400" height="192" rx="12" fill="#FAF4E4" stroke="#8A7538" stroke-width="3.5"/>
+ <text class="t" x="38" y="302" fill="#5C4E22">MODEL STORE</text>
+ <text class="s" x="38" y="330" fill="#7A6A3C">models/ — 3 MB, committed</text>
+ <rect x="38" y="346" width="360" height="42" rx="7" fill="#fff" stroke="#D6C89A"/><text class="c" x="218" y="374" text-anchor="middle" fill="#5C4E22">crop_model.pkl</text>
+ <rect x="38" y="398" width="360" height="42" rx="7" fill="#fff" stroke="#D6C89A"/><text class="c" x="218" y="426" text-anchor="middle" fill="#5C4E22">yield_model.pkl + encoders</text>
+</svg>
