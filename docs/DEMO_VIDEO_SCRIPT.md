@@ -57,14 +57,40 @@ Both terminals stay minimised during the recording.
 
 ### 1.4 Prepare the app before you record
 
-1. **Profile → Edit** — set your name and a farm name. The home screen greets
-   you by name instead of "Farmer".
-2. **Profile → Soil Data** — enter `N 90, P 42, K 43, pH 6.5`. The crop form
-   does **not** fill itself; it shows a **Use Saved Data** button, which you
-   tap on camera. That is a good beat — it shows the app remembers.
-3. **Profile → Settings → clear history**, then reload the page once. History
-   starts empty and fills up during the demo.
-4. Go back to the **home screen**. That is your first frame.
+Open <http://localhost:8081> in Chrome. Do this setup in the **same window**
+you will record in.
+
+**Start with empty history.** `Alert.alert` is a no-op in react-native-web
+0.21, so the Clear button on the History tab does nothing in a browser. Clear
+the data from the browser instead: `F12` → Application → Storage → Local
+storage → `http://localhost:8081` → right-click → Clear, then reload the page.
+Recording in a fresh incognito window works just as well.
+
+**Profile → Edit** — tap Save Profile when done:
+
+| Field | Type exactly |
+|---|---|
+| Your Name | `Kartheeban` |
+| Farm Name | `Green Valley Farm` |
+| Location | `Chennai, Tamil Nadu` |
+| Farm Area | `2` |
+| Area Unit | Hectares |
+| Primary Crop | `Rice` |
+
+`Rice` must be spelt with a capital R — it has to match the model's crop list
+exactly, or the Yield form's "Use Profile Data" button will not fill the crop.
+
+**Profile → Soil Data** — tap Save Soil Data when done:
+
+| Field | Type exactly |
+|---|---|
+| Nitrogen (N) | `90` |
+| Phosphorus (P) | `42` |
+| Potassium (K) | `43` |
+| Soil pH | `6.5` |
+| Soil Moisture | `55` |
+
+Then go back to the **Home** tab. That is your first frame.
 
 ### 1.5 Clean the screen
 
@@ -179,8 +205,8 @@ millimetres.
 
 "Now the second question. How much will I get?
 
-"I tap Yield. Crop: rice. Season: Kharif. Area: two hectares. Then
-temperature, humidity and soil moisture.
+"I tap Yield, and Use Profile Data. It fills in rice, and my two hectares.
+Season: Kharif. Then temperature, humidity and soil moisture.
 
 "It says two point two seven seven units per hectare. About four point six for
 the whole plot.
@@ -218,30 +244,76 @@ has an R squared of zero point seven four. All the code is on GitHub.
 
 ---
 
-## 5. Values to type on camera
+## 5. Exactly what to type on camera
 
-These were run against the committed models. Use them exactly.
+Every result below was run against the committed models in this repo.
 
-### Crop recommendation
+### Crop Recommendation — take 1 (rice)
 
-| N | P | K | Temp | Humidity | pH | Rainfall | Result |
-|---|---|---|---|---|---|---|---|
-| 90 | 42 | 43 | 20.9 | 82 | 6.5 | 202.9 | **rice** |
-| 20 | 60 | 20 | 28.5 | 55 | 7.2 | 65 | **mothbeans** |
+Home → **Crop → Analyze**, then tap **Use Saved Data**.
 
-### Yield estimation
+| Field | Value | Note |
+|---|---|---|
+| Nitrogen (N) | `90` | filled by Use Saved Data |
+| Phosphorus (P) | `42` | filled by Use Saved Data |
+| Potassium (K) | `43` | filled by Use Saved Data |
+| Soil pH | `6.5` | filled by Use Saved Data |
+| Temperature | `20.9` | type it |
+| Humidity | `82` | type it |
+| Rainfall | `202.9` | type it |
 
-| Crop | Season | Area | Temp | Humidity | Soil moisture | Result |
-|---|---|---|---|---|---|---|
-| Rice | Kharif | 2 ha | 30 | 70 | 55 | **2.277** /ha — 4.6 total |
-| Rice | Rabi | 2 ha | 30 | 70 | 55 | **2.464** /ha — 4.9 total |
+Tap **🌱 Get Recommendation** → **RICE**
+
+### Crop Recommendation — take 2 (mothbeans)
+
+Tap **New Analysis**, then type all seven.
+
+| Field | Value |
+|---|---|
+| Nitrogen (N) | `20` |
+| Phosphorus (P) | `60` |
+| Potassium (K) | `20` |
+| Soil pH | `7.2` |
+| Temperature | `28.5` |
+| Humidity | `55` |
+| Rainfall | `65` |
+
+Tap **🌱 Get Recommendation** → **MOTHBEANS**
+
+### Yield Estimation — take 1 (Kharif)
+
+**Back to Analyze Hub → Yield Estimation**, then tap **Use Profile Data**.
+
+| Field | Value | Note |
+|---|---|---|
+| Crop | `Rice` | filled by Use Profile Data |
+| Season | `Kharif` | pick from the dropdown |
+| Cultivated Area | `2` | filled by Use Profile Data |
+| Temperature | `30` | type it |
+| Humidity | `70` | type it |
+| Soil Moisture | `55` | type it |
+
+Tap **📊 Estimate Yield** → **2.277** per hectare, **Total for 2 ha: 4.6 units**
+
+### Yield Estimation — take 2 (Rabi)
+
+Tap **New Analysis**, enter the same values but change the season.
+
+| Field | Value |
+|---|---|
+| Crop | `Rice` |
+| Season | `Rabi` |
+| Cultivated Area | `2` |
+| Temperature | `30` |
+| Humidity | `70` |
+| Soil Moisture | `55` |
+
+Tap **📊 Estimate Yield** → **2.464** per hectare, **Total for 2 ha: 4.9 units**
 
 ### Metrics quoted at the end
 
 - Crop recommendation — Random Forest: **99.55 %** test accuracy
 - Yield estimation — XGBoost tuned: **R² 0.740**
-
----
 
 ## 6. If something goes wrong
 
@@ -250,4 +322,6 @@ These were run against the committed models. Use them exactly.
 | Every prediction shows `NETWORK_ERROR` | App pointing at `10.0.2.2` | Set `EXPO_PUBLIC_API_URL` (§1.2) |
 | Expo will not bundle | Wrong install flag | `npm install --legacy-peer-deps` |
 | `'pip' is not recognized` | Virtual environment not active | Re-run activate; your prompt must start with `(.venv)` |
-| App opens on the onboarding screen mid-demo | History cleared after launch | Clear history **before** recording, then reload once |
+| App opens on the onboarding screen mid-demo | Storage cleared after launch | Clear local storage **before** recording, then reload once |
+| History "Clear" button does nothing | `Alert.alert` is a no-op in react-native-web | Clear local storage from DevTools (§1.4) |
+| "Use Profile Data" fills the area but not the crop | Primary Crop does not match the model's list | Set it to `Rice`, capital R |
