@@ -59,8 +59,9 @@ Both terminals stay minimised during the recording.
 
 1. **Profile → Edit** — set your name and a farm name. The home screen greets
    you by name instead of "Farmer".
-2. **Profile → Soil Data** — enter `N 90, P 42, K 43, pH 6.5`. This pre-fills
-   the crop form, so you can say "it is already filled in from my profile".
+2. **Profile → Soil Data** — enter `N 90, P 42, K 43, pH 6.5`. The crop form
+   does **not** fill itself; it shows a **Use Saved Data** button, which you
+   tap on camera. That is a good beat — it shows the app remembers.
 3. **Profile → Settings → clear history**, then reload the page once. History
    starts empty and fills up during the demo.
 4. Go back to the **home screen**. That is your first frame.
@@ -139,13 +140,13 @@ recent analyses. It is empty right now.
 
 ### [0:27 – 1:02] Crop recommendation
 
-> **On screen:** tap Crop → Analyze. Type each value slowly. Hold on the
-> result card for three full seconds.
+> **On screen:** Home → Crop → Analyze. Tap **Use Saved Data**, then type the
+> three weather values slowly. Hold on the result card for three full seconds.
 
 "I tap Crop.
 
-"The soil values are already filled in from my profile. Nitrogen ninety.
-Phosphorus forty-two. Potassium forty-three. pH six point five.
+"I saved my soil card earlier, so I tap Use Saved Data. Nitrogen ninety.
+Phosphorus forty-two. Potassium forty-three. pH six point five. All filled in.
 
 "Now the weather. Temperature twenty point nine degrees. Humidity eighty-two
 percent. Rainfall two hundred and two millimetres.
