@@ -43,12 +43,39 @@ To start the Expo development server:
 npx expo start
 ```
 
-## 4. Android Emulator Setup
+## 4. Browser (Web) Setup
+
+The fastest way to run the app on a laptop — no emulator, no phone.
+
+```bash
+cd mobile
+npm install --legacy-peer-deps
+npx expo start --web
+```
+
+It opens at <http://localhost:8081>.
+
+`mobile/.env` ships pointing at `http://localhost:8000/api/v1`, which is what a
+browser needs. Leave it alone for a browser run; change it only for an
+emulator or a physical phone (sections 5 and 6).
+
+The web build needs `react-dom`, `react-native-web` and `@expo/metro-runtime`.
+They are declared in `package.json`, so `npm install` brings them in — you do
+not need to install them separately.
+
+**Note on `Alert.alert`:** react-native-web implements it as an empty
+function, so confirmation dialogs do nothing in a browser. That means the
+History tab's **Clear** button and the per-item delete have no effect on web.
+To reset the app's stored data, clear Local storage for
+`http://localhost:8081` in DevTools (F12 → Application → Storage), or use a
+private window. Both work normally on Android and iOS.
+
+## 5. Android Emulator Setup
 
 If you have Android Studio and an emulator running, press `a` in the Expo terminal to open it in the emulator.
 The default API URL points to `http://10.0.2.2:8000/api/v1` which routes to your computer's localhost from the Android emulator.
 
-## 5. Physical Android Phone Setup
+## 6. Physical Android Phone Setup
 
 If you are using the Expo Go app on a physical Android phone, `10.0.2.2` will not work. You must point the application to your computer's local IP address.
 
@@ -60,20 +87,29 @@ If you are using the Expo Go app on a physical Android phone, `10.0.2.2` will no
    npx expo start
    ```
 
-## 6. FastAPI Startup
+## 7. FastAPI Startup
 
 Ensure the backend is running before testing API requests:
 ```bash
-# In the root directory
-uvicorn api.main:app --reload
+# From the REPOSITORY ROOT -- the folder containing api/, src/ and models/.
+# Running this from anywhere else gives "ModuleNotFoundError: No module named 'api'".
+python -m uvicorn api.main:app --host 0.0.0.0 --port 8000 --reload
 ```
 
-## 7. EXPO_PUBLIC_API_URL Configuration
+## 8. EXPO_PUBLIC_API_URL Configuration
 
 The `EXPO_PUBLIC_API_URL` environment variable controls where the app looks for the backend.
-If unset, it defaults to `http://10.0.2.2:8000/api/v1` (for Android emulators).
+It is read from `mobile/.env`, which this repository ships set to
+`http://localhost:8000/api/v1` for browser runs. If no value is supplied at
+all, the code falls back to `http://10.0.2.2:8000/api/v1` (Android emulator).
 
-## 8. Development Workflow
+| Where you run the app | Value |
+|---|---|
+| Browser on your laptop | `http://localhost:8000/api/v1` |
+| Android emulator | `http://10.0.2.2:8000/api/v1` |
+| Physical phone (Expo Go) | `http://<your-LAN-IP>:8000/api/v1` |
+
+## 9. Development Workflow
 
 - `app/`: Expo Router application screens and navigation flow
 - `components/`: Reusable React components (UI, layout, forms, etc.)
@@ -81,7 +117,7 @@ If unset, it defaults to `http://10.0.2.2:8000/api/v1` (for Android emulators).
 - `services/`: API integration and other background services
 - `types/`: Strict TypeScript definitions
 
-## 9. Testing
+## 10. Testing
 
 TypeScript type checking:
 ```bash
@@ -93,7 +129,7 @@ Backend regression tests (run from the root directory):
 python -m pytest tests/ api/tests/ -v
 ```
 
-## 10. Android Build Instructions
+## 11. Android Build Instructions
 
 To build the APK for Android devices:
 ```bash
@@ -111,7 +147,7 @@ The application expects the following assets in `mobile/assets/`:
 - `splash.png` (1242x2436 or similar)
 Current configuration is placed in `app.json`.
 
-## 11. Troubleshooting
+## 12. Troubleshooting
 
 - **API Network Errors**: Ensure your FastAPI backend is running and the `EXPO_PUBLIC_API_URL` is set correctly for your device/emulator. If using a physical phone, ensure your computer's firewall allows incoming connections on port 8000.
 - **Expo Go crashes**: Ensure you have the latest version of Expo Go installed on your device.
